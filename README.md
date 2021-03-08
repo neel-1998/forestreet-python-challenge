@@ -10,7 +10,7 @@ The user should be able to:
 ## Solution
 ### General
 My solution to this task uses 3 services:
-1. A web server/job queue (`request-handler.py`)
+1. A web server/job queue (`request_handler.py`)
 2. A worker (`worker.py`)
 3. A Redis server
 
@@ -40,7 +40,7 @@ It is assumed that `Docker` (version >= 20.10.5) and `docker-compose` (version >
 ### Configuration
 There are a handful of environment variables the Python modules will attempt to retrieve. These can be defined in the `docker-compose.yml`. They have all been given default values for out of the box use.
 
-For `request-handler.py`:
+For `request_handler.py`:
 
         REDIS_URL - URL to connect to Redis server (default = "redis://localhost:6379")
         QUEUE_NAME - Name of the Queue (default = "word-count-queue")
