@@ -38,7 +38,6 @@ It is assumed that `Docker` (version >= 20.10.5) and `docker-compose` (version >
         docker-compose down [--rmi all]
 
 ### Configuration
-
 There are a handful of environment variables the Python modules will attempt to retrieve. These can be defined in the `docker-compose.yml`. They have all been given default values for out of the box use.
 
 For `request-handler.py`:
@@ -55,4 +54,7 @@ For `worker.py`:
         REDIS_URL - URL to connect to Redis server (default = "redis://localhost:6379")
         QUEUE_NAME - Name of the Queue (default = "word-count-queue")
 
-
+### Notes
+- Manual testing has been done - would like to implement automated testing.
+- Redundant files on web-queue and worker services - I create one docker image which contains all python modules. Each service should only need the python module called (and module imports), leaving at least one unused file on each service. I did this because it seemed more efficient than building 2 images which would use more storage. Workaround could involve using volumes in the `docker-compose.yml`.
+- Could implement some logging to help debug.
