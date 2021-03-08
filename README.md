@@ -17,7 +17,7 @@ My solution to this task uses 3 services:
 ### Requirements
 It is assumed that `Docker` (version >= 20.10.5) and `docker-compose` (version >= 1.28.5) are installed.
 ### Usage
-1. Clone this repo
+1. Clone this repo and cd into directory
 2. Run the command to start all services:
 
         docker-compose up
