@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  # This service name must match the REDIS_URL hostname
+  redis-server:
+    image: 'redis:alpine'
+    
+  worker:
+    build: .
+    image: 'python-web-queue-worker'
+    container_name: worker
+    command: python python-modules/worker.py
+    environment:
+      # The environment variable REDIS_URL's host must match the redis service name
+      - REDIS_URL=redis://redis-server:6379
+    depends_on:
+      - redis-server
+  
+  web-job-queue:
+    image: python-web-queue-worker
+    container_name: web-job-queue
+    command: python python-modules/request-handler.py
+    environment:
+      # The environment variable REDIS_URL's host must match the redis service name
+      - REDIS_URL=redis://redis-server:6379
+      # The environment variable WEB_SERVER_HOST host should not be localhost
+      - WEB_SERVER_HOST=0.0.0.0
+    expose: 
+      - '5000'
+    ports:
+      - '5000:5000'
+    depends_on:
+      - redis-server
+
