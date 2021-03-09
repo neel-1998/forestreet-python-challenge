@@ -42,7 +42,8 @@ There are a handful of environment variables the Python modules will attempt to 
 
 For `request_handler.py`:
 
-        REDIS_URL - URL to connect to Redis server (default = "redis://localhost:6379")
+        REDIS_HOST - URL to connect to Redis server (default = "localhost")
+        REDIS_PORT - URL to connect to Redis server (default = 6379)
         QUEUE_NAME - Name of the Queue (default = "word-count-queue")
         RESULT_TTL - Time to live for the result (default = 60)
         REQUEST_TTL - Time to live for the request in the queue (default = 60)
@@ -56,5 +57,5 @@ For `worker.py`:
 
 ### Notes
 - Manual testing has been done - would like to implement automated testing.
-- Redundant files on web-queue and worker services - I create one docker image which contains all python modules. Each service should only need the python module called (and module imports), leaving at least one unused file on each service. I did this because it seemed more efficient than building 2 images which would use more storage. Workaround could involve using volumes in the `docker-compose.yml`.
+- Redundant files on web-queue and worker services - I create one docker image which contains all python modules. Each service should only need the python module called (and module imports), leaving at least one unused file on each service. I did this because it seemed more efficient than building 2 images which would use more storage. Workaround could involve using a multi-stage build in the `Dockerfile` that is referenced in the `docker-compose.yml`.
 - Could implement some logging to help debug.
