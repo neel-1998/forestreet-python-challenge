@@ -52,7 +52,8 @@ For `request_handler.py`:
 
 For `worker.py`:
 
-        REDIS_URL - URL to connect to Redis server (default = "redis://localhost:6379")
+        REDIS_HOST - URL to connect to Redis server (default = "localhost")
+        REDIS_PORT - URL to connect to Redis server (default = 6379)
         QUEUE_NAME - Name of the Queue (default = "word-count-queue")
 
 ### Notes
