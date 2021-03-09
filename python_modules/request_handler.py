@@ -11,7 +11,8 @@ import tasks
 app = Flask(__name__)
 
 # Setup variables and read environment variables
-redis_url = environ.get("REDIS_URL", "redis://localhost:6379")
+redis_host = environ.get("REDIS_HOST", "localhost")
+redis_port = int(environ.get("REDIS_PORT", 6379))
 queue_name = environ.get("QUEUE_NAME", "word-count-queue")
 result_ttl = int(environ.get("RESULT_TTL", 60))
 request_ttl = int(environ.get("REQUEST_TTL", 60))
@@ -19,6 +20,7 @@ web_server_host = environ.get("WEB_SERVER_HOST", "localhost")
 web_server_port = int(environ.get("WEB_SERVER_PORT", 5000))
 
 # Setup Redis connection
+redis_url = f"redis://{redis_host}:{redis_port}"
 redis_conn = redis.from_url(redis_url)
 
 @app.route("/", methods=["GET"])
@@ -70,7 +72,7 @@ def get_word_count(job_id):
         return "Redis connection error"
 
     if job.is_finished:
-        return job.result
+        return f"The sentence {job.args[0]} has {job.result} words"
     else:
         status = job.get_status()
         return f"This job has status: {status}", 202

@@ -11,7 +11,8 @@ services:
     command: python python_modules/worker.py
     environment:
       # The environment variable REDIS_URL's host must match the redis service name
-      - REDIS_URL=redis://redis-server:6379
+      - REDIS_HOST=redis-server
+      - REDIS_PORT=6379
     depends_on:
       - redis-server
   
@@ -21,7 +22,8 @@ services:
     command: python python_modules/request_handler.py
     environment:
       # The environment variable REDIS_URL's host must match the redis service name
-      - REDIS_URL=redis://redis-server:6379
+      - REDIS_HOST=redis-server
+      - REDIS_PORT=6379
       # The environment variable WEB_SERVER_HOST host should not be localhost
       - WEB_SERVER_HOST=0.0.0.0
     expose: 
